@@ -1,306 +1,1388 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --am:#F59E0B;--am-l:#FEF3C7;--bg:#0D0D0D;--card:#1C1C1E;--card2:#252528;
-  --bd:#2C2C2E;--tx:#F2F2F7;--mu:#8E8E93;--mu2:#636366;
-  --gr:#30D158;--re:#FF453A;--bl:#0A84FF;--pu:#BF5AF2;--te:#32D4BE;
-}
-body{font-family:'Sora',sans-serif;background:#0a0a0a;color:var(--tx);min-height:100vh}
-.topnav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:#111;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:100}
-.logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--am)}
-.logo span{color:var(--tx)}
-.tabnav{display:flex;gap:4px;background:var(--card);border-radius:10px;padding:3px}
-.tabnav button{padding:7px 18px;border:none;border-radius:8px;font-family:'Sora',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;background:transparent;color:var(--mu)}
-.tabnav button.active{background:var(--am);color:#000}
-.demo-badge{font-size:11px;color:var(--mu2);background:var(--card);padding:4px 10px;border-radius:20px;border:1px solid var(--bd)}
-.layout{display:flex;gap:32px;padding:24px;align-items:flex-start;max-width:1200px;margin:0 auto}
-/* PHONE */
-.phone-outer{flex-shrink:0}
-.phone-frame{width:340px;height:680px;background:#1a1a1a;border-radius:44px;border:8px solid #2a2a2a;overflow:hidden;position:relative;box-shadow:0 0 0 1px #3a3a3a,0 40px 80px rgba(0,0,0,.7);display:flex;flex-direction:column}
-.phone-notch{height:32px;background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.notch-pill{width:80px;height:10px;background:#0a0a0a;border-radius:8px}
-.phone-screen{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative}
-.phone-screen::-webkit-scrollbar{display:none}
-.phone-home{height:16px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.home-bar{width:100px;height:4px;background:#333;border-radius:2px}
-.phone-label{text-align:center;margin-top:10px;font-size:11px;color:var(--mu2)}
-.flow-steps{margin-top:12px;width:340px}
-.flow-step{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:11px;color:var(--mu2)}
-.flow-step.active{color:var(--am)}
-.flow-step.done{color:var(--mu2)}
-.fsdot{width:6px;height:6px;border-radius:50%;background:var(--bd);flex-shrink:0}
-.flow-step.active .fsdot{background:var(--am)}
-.flow-step.done .fsdot{background:var(--gr)}
-.reset-btn{width:340px;margin-top:10px;padding:10px;background:transparent;border:1px solid var(--bd);border-radius:10px;color:var(--mu2);font-family:'Sora',sans-serif;font-size:12px;cursor:pointer}
-.reset-btn:hover{border-color:var(--re);color:var(--re)}
-/* SCREENS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.screen{animation:fadeUp .2s ease;min-height:100%}
-/* WELCOME */
-.s-welcome{background:linear-gradient(160deg,#1a0f00,#0D0D0D 60%);min-height:100%;display:flex;flex-direction:column;padding:20px 18px}
-.rest-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.rest-emblem{width:72px;height:72px;background:linear-gradient(135deg,var(--am),#E07B00);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 0 40px rgba(245,158,11,.3)}
-.rest-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);text-align:center}
-.rest-tag{font-size:12px;color:var(--mu);text-align:center}
-.table-badge{background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:20px;padding:6px 16px;font-size:12px;color:var(--am);font-weight:600}
-.wifi-card{background:rgba(48,209,88,.1);border:1px solid rgba(48,209,88,.25);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;width:100%}
-.wdot{width:8px;height:8px;background:var(--gr);border-radius:50%;animation:blink 1.5s infinite;flex-shrink:0}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.btn-p{width:100%;padding:14px;background:var(--am);color:#000;border:none;border-radius:14px;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:auto;transition:opacity .15s}
-.btn-p:active{opacity:.8}
-/* REGISTER */
-.s-reg{background:var(--bg);min-height:100%;padding:20px 18px;display:flex;flex-direction:column;gap:14px}
-.stitle{font-size:18px;font-weight:700;color:var(--tx)}
-.ssub{font-size:12px;color:var(--mu);margin-top:2px;line-height:1.5}
-.field label{display:block;font-size:11px;font-weight:500;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.field input{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;font-family:'Sora',sans-serif;font-size:13px;color:var(--tx);outline:none;transition:border .15s}
-.field input:focus{border-color:var(--am)}
-.field input::placeholder{color:var(--mu2)}
-.privacy{background:var(--card);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--mu);line-height:1.5}
-/* MENU */
-.s-menu{background:var(--bg);display:flex;flex-direction:column}
-.mheader{padding:16px 18px 0}
-.mheader-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.mheader h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--tx)}
-.cpill{background:var(--am);color:#000;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'Sora',sans-serif}
-.cats-wrap{display:flex;gap:8px;overflow-x:auto;padding:0 18px 12px;scrollbar-width:none}
-.cats-wrap::-webkit-scrollbar{display:none}
-.catbtn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(--bd);background:transparent;color:var(--mu);font-family:'Sora',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
-.catbtn.active{background:var(--am);color:#000;border-color:var(--am)}
-.items-list{padding:0 18px 90px;display:flex;flex-direction:column;gap:10px}
-.mitem{background:var(--card);border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center;border:1px solid var(--bd)}
-.iemoji{width:48px;height:48px;background:var(--card2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.iinfo{flex:1;min-width:0}
-.iname{font-size:13px;font-weight:600;color:var(--tx)}
-.idesc{font-size:11px;color:var(--mu);margin-top:2px;line-height:1.4}
-.iprice{font-size:13px;font-weight:700;color:var(--am);margin-top:4px}
-.qctrl{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.qbtn{width:28px;height:28px;border-radius:8px;border:none;background:var(--card2);color:var(--tx);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .15s;font-family:'Sora',sans-serif}
-.qbtn.plus{background:var(--am);color:#000;font-weight:700}
-.qbtn:active{opacity:.7}
-.qnum{font-size:13px;font-weight:600;color:var(--tx);min-width:16px;text-align:center}
-.cartbar{position:sticky;bottom:0;padding:12px 18px 10px;background:linear-gradient(to top,var(--bg) 70%,transparent)}
-.cartbar-inner{background:var(--am);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border:none;width:100%;font-family:'Sora',sans-serif}
-.cartbar-inner:active{opacity:.85}
-.cbadge{background:rgba(0,0,0,.2);border-radius:8px;padding:2px 8px;font-size:12px;font-weight:700;color:#000}
-.clabel{font-size:13px;font-weight:700;color:#000}
-.ctotal{font-size:14px;font-weight:700;color:#000}
-/* CART */
-.s-cart{background:var(--bg);min-height:100%;padding:18px;display:flex;flex-direction:column;gap:12px}
-.back-btn{background:none;border:none;color:var(--mu);font-family:'Sora',sans-serif;font-size:13px;cursor:pointer;padding:0;text-align:left}
-.bcard{background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--bd)}
-.bcard-hd{padding:10px 14px;background:var(--card2);font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
-.crow{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid var(--bd);gap:10px}
-.crow:last-child{border-bottom:none}
-.cem{font-size:18px;width:26px}
-.cnm{flex:1;font-size:13px;color:var(--tx)}
-.cqt{font-size:12px;color:var(--mu)}
-.cpr{font-size:13px;font-weight:600;color:var(--am)}
-.bill{background:var(--card);border-radius:14px;padding:14px;border:1px solid var(--bd)}
-.bline{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);padding:3px 0}
-.btotal{display:flex;justify-content:space-between;font-size:15px;font-weight:700;color:var(--tx);padding:10px 0 4px;border-top:1px solid var(--bd);margin-top:6px}
-/* PAYMENT */
-.s-pay{background:var(--bg);min-height:100%;padding:18px;display:flex;flex-direction:column;gap:12px}
-.payopts{display:flex;flex-direction:column;gap:8px}
-.payopt{background:var(--card);border:1.5px solid var(--bd);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s}
-.payopt.sel{border-color:var(--am);background:rgba(245,158,11,.07)}
-.pico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0}
-.pnm{font-size:13px;font-weight:600;color:var(--tx)}
-.pds{font-size:11px;color:var(--mu);margin-top:1px}
-.radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd);flex-shrink:0;margin-left:auto;position:relative}
-.radio.on{border-color:var(--am)}
-.radio.on::after{content:'';position:absolute;width:9px;height:9px;background:var(--am);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
-.snote{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mu)}
-.sdot{width:6px;height:6px;background:var(--gr);border-radius:50%}
-/* TICKET */
-.s-tick{background:var(--bg);min-height:100%;padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center}
-.tchk{width:60px;height:60px;background:rgba(48,209,88,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px solid rgba(48,209,88,.3)}
-.tcard{width:100%;background:var(--card);border-radius:16px;border:1.5px dashed var(--bd);padding:16px;text-align:center}
-.tnum{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--am);line-height:1}
-.tlbl{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.tmeta{display:flex;justify-content:center;gap:16px;margin-top:10px}
-.tmv{font-size:13px;font-weight:600;color:var(--tx)}
-.tml{font-size:10px;color:var(--mu)}
-.timerbox{width:100%;background:var(--card2);border-radius:14px;padding:16px;text-align:center;border:1px solid var(--bd)}
-.twait{font-size:12px;color:var(--am);animation:blink 1.5s infinite;font-weight:500}
-.twait-hint{font-size:11px;color:var(--am);margin-top:8px;font-style:italic}
-.tval{font-size:44px;font-weight:700;color:var(--tx);letter-spacing:2px;font-variant-numeric:tabular-nums}
-.tsub{font-size:11px;color:var(--mu);margin-top:4px}
-.tstart{font-size:10px;color:var(--gr);font-weight:500;margin-top:4px}
-.wnote{width:100%;background:rgba(48,209,88,.1);border:1px solid rgba(48,209,88,.2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gr)}
-.btn-fb{width:100%;padding:12px;background:transparent;border:1.5px solid var(--bd);border-radius:14px;color:var(--mu);font-family:'Sora',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px}
-.btn-fb:hover{border-color:var(--am);color:var(--am)}
-/* FEEDBACK */
-.s-fb{background:var(--bg);min-height:100%;padding:18px;display:flex;flex-direction:column;gap:14px}
-.stars{display:flex;gap:10px;justify-content:center;padding:8px 0}
-.star{font-size:30px;cursor:pointer;color:var(--bd);transition:transform .1s,color .1s;line-height:1}
-.star.lit{color:var(--am)}
-.star:active{transform:scale(1.2)}
-.rlabel{text-align:center;font-size:13px;color:var(--mu);height:20px}
-.fbtxt{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;font-family:'Sora',sans-serif;font-size:13px;color:var(--tx);outline:none;resize:none;height:88px;transition:border .15s}
-.fbtxt:focus{border-color:var(--am)}
-.fb-done{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 0}
-/* DASHBOARD */
-.dashboard{flex:1;min-width:0}
-.dash-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.dash-title{font-size:20px;font-weight:700;color:var(--tx)}
-.dash-sub{font-size:12px;color:var(--mu);margin-top:2px}
-.live{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gr);font-weight:500}
-.ldot{width:8px;height:8px;background:var(--gr);border-radius:50%;animation:blink 1.5s infinite}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
-.scard{background:var(--card);border-radius:14px;padding:14px 14px 14px 18px;border:1px solid var(--bd);position:relative;overflow:hidden}
-.scard-accent{position:absolute;left:0;top:0;width:4px;height:100%;border-radius:4px 0 0 4px}
-.sval{font-size:26px;font-weight:700;color:var(--tx);font-family:'Playfair Display',serif}
-.slbl{font-size:11px;color:var(--mu);margin-top:2px}
-.sec-lbl{font-size:12px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.orders-wrap{display:flex;flex-direction:column;gap:10px}
-.ocard{background:var(--card);border-radius:14px;padding:14px;border:1px solid var(--bd);border-left:3px solid var(--bd);transition:all .3s}
-.ocard.pending{border-left-color:var(--am)}
-.ocard.confirmed{border-left-color:var(--bl)}
-.ocard.preparing{border-left-color:var(--pu)}
-.ocard.delivered{border-left-color:var(--gr);opacity:.65}
-.ocard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
-.otag{background:rgba(10,132,255,.15);color:var(--bl);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;display:inline-block}
-.oname{font-size:14px;font-weight:600;color:var(--tx);margin-top:4px}
-.otime{font-size:11px;color:var(--mu)}
-.ototal{font-size:17px;font-weight:700;color:var(--am)}
-.oitems{font-size:12px;color:var(--mu);background:var(--card2);border-radius:8px;padding:8px 10px;line-height:1.6;margin-bottom:10px}
-.oactions{display:flex;gap:8px}
-.abtn{flex:1;padding:8px;border-radius:10px;border:none;font-family:'Sora',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .15s}
-.abtn:active{opacity:.7}
-.abtn.confirm{background:var(--am);color:#000}
-.abtn.prepare{background:rgba(191,90,242,.2);color:var(--pu);border:1px solid rgba(191,90,242,.35)}
-.abtn.deliver{background:rgba(48,209,88,.15);color:var(--gr);border:1px solid rgba(48,209,88,.3)}
-.abtn.done{background:rgba(48,209,88,.1);color:var(--gr);border:1px solid rgba(48,209,88,.2);cursor:default}
-.sbadge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-top:4px;display:inline-block}
-.sbadge.pending{background:rgba(245,158,11,.15);color:var(--am)}
-.sbadge.confirmed{background:rgba(10,132,255,.15);color:var(--bl)}
-.sbadge.preparing{background:rgba(191,90,242,.15);color:var(--pu)}
-.sbadge.delivered{background:rgba(48,209,88,.15);color:var(--gr)}
-.empty{text-align:center;padding:40px 20px;color:var(--mu2)}
-.sync-msg{background:rgba(48,209,88,.1);border:1px solid rgba(48,209,88,.25);border-radius:12px;padding:10px 16px;font-size:12px;color:var(--gr);margin-bottom:14px;animation:fadeUp .3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-</style>
-</head>
-<body>
-<div class="topnav">
-  <div class="logo">Table<span>Q</span></div>
-  <div class="tabnav">
-    <button id="tab-c" class="active">📱 Customer Demo</button>
-    <button id="tab-d">🖥️ Cashier Dashboard</button>
-  </div>
-  <div class="demo-badge">🔴 Live Demo</div>
-</div>
-
-<div class="layout">
-  <div class="phone-outer" id="phone-side">
-    <div class="phone-frame">
-      <div class="phone-notch"><div class="notch-pill"></div></div>
-      <div class="phone-screen" id="pscreen"></div>
-      <div class="phone-home"><div class="home-bar"></div></div>
-    </div>
-    <div class="phone-label">Table 04 · Spice Garden</div>
-    <div class="flow-steps" id="fsteps"></div>
-    <button class="reset-btn" id="reset-btn">↺ Reset Demo</button>
-  </div>
-
-  <div class="dashboard" id="dash-side" style="display:none">
-    <div id="sync-area"></div>
-    <div class="dash-hd">
-      <div>
-        <div class="dash-title">Spice Garden · Order Dashboard</div>
-        <div class="dash-sub">Real-time order management</div>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --am: #f59e0b;
+        --am-l: #fef3c7;
+        --bg: #0d0d0d;
+        --card: #1c1c1e;
+        --card2: #252528;
+        --bd: #2c2c2e;
+        --tx: #f2f2f7;
+        --mu: #8e8e93;
+        --mu2: #636366;
+        --gr: #30d158;
+        --re: #ff453a;
+        --bl: #0a84ff;
+        --pu: #bf5af2;
+        --te: #32d4be;
+      }
+      body {
+        font-family: "Sora", sans-serif;
+        background: #0a0a0a;
+        color: var(--tx);
+        min-height: 100vh;
+      }
+      .topnav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 24px;
+        background: #111;
+        border-bottom: 1px solid var(--bd);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        color: var(--am);
+      }
+      .logo span {
+        color: var(--tx);
+      }
+      .tabnav {
+        display: flex;
+        gap: 4px;
+        background: var(--card);
+        border-radius: 10px;
+        padding: 3px;
+      }
+      .tabnav button {
+        padding: 7px 18px;
+        border: none;
+        border-radius: 8px;
+        font-family: "Sora", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: transparent;
+        color: var(--mu);
+      }
+      .tabnav button.active {
+        background: var(--am);
+        color: #000;
+      }
+      .demo-badge {
+        font-size: 11px;
+        color: var(--mu2);
+        background: var(--card);
+        padding: 4px 10px;
+        border-radius: 20px;
+        border: 1px solid var(--bd);
+      }
+      .layout {
+        display: flex;
+        gap: 32px;
+        padding: 24px;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      /* PHONE */
+      .phone-outer {
+        flex-shrink: 0;
+      }
+      .phone-frame {
+        width: 340px;
+        height: 680px;
+        background: #1a1a1a;
+        border-radius: 44px;
+        border: 8px solid #2a2a2a;
+        overflow: hidden;
+        position: relative;
+        box-shadow:
+          0 0 0 1px #3a3a3a,
+          0 40px 80px rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+      }
+      .phone-notch {
+        height: 32px;
+        background: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .notch-pill {
+        width: 80px;
+        height: 10px;
+        background: #0a0a0a;
+        border-radius: 8px;
+      }
+      .phone-screen {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        position: relative;
+      }
+      .phone-screen::-webkit-scrollbar {
+        display: none;
+      }
+      .phone-home {
+        height: 16px;
+        background: #1a1a1a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .home-bar {
+        width: 100px;
+        height: 4px;
+        background: #333;
+        border-radius: 2px;
+      }
+      .phone-label {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 11px;
+        color: var(--mu2);
+      }
+      .flow-steps {
+        margin-top: 12px;
+        width: 340px;
+      }
+      .flow-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 0;
+        font-size: 11px;
+        color: var(--mu2);
+      }
+      .flow-step.active {
+        color: var(--am);
+      }
+      .flow-step.done {
+        color: var(--mu2);
+      }
+      .fsdot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--bd);
+        flex-shrink: 0;
+      }
+      .flow-step.active .fsdot {
+        background: var(--am);
+      }
+      .flow-step.done .fsdot {
+        background: var(--gr);
+      }
+      .reset-btn {
+        width: 340px;
+        margin-top: 10px;
+        padding: 10px;
+        background: transparent;
+        border: 1px solid var(--bd);
+        border-radius: 10px;
+        color: var(--mu2);
+        font-family: "Sora", sans-serif;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .reset-btn:hover {
+        border-color: var(--re);
+        color: var(--re);
+      }
+      /* SCREENS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .screen {
+        animation: fadeUp 0.2s ease;
+        min-height: 100%;
+      }
+      /* WELCOME */
+      .s-welcome {
+        background: linear-gradient(160deg, #1a0f00, #0d0d0d 60%);
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 18px;
+      }
+      .rest-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .rest-emblem {
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, var(--am), #e07b00);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        box-shadow: 0 0 40px rgba(245, 158, 11, 0.3);
+      }
+      .rest-name {
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--tx);
+        text-align: center;
+      }
+      .rest-tag {
+        font-size: 12px;
+        color: var(--mu);
+        text-align: center;
+      }
+      .table-badge {
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: 20px;
+        padding: 6px 16px;
+        font-size: 12px;
+        color: var(--am);
+        font-weight: 600;
+      }
+      .wifi-card {
+        background: rgba(48, 209, 88, 0.1);
+        border: 1px solid rgba(48, 209, 88, 0.25);
+        border-radius: 12px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+      }
+      .wdot {
+        width: 8px;
+        height: 8px;
+        background: var(--gr);
+        border-radius: 50%;
+        animation: blink 1.5s infinite;
+        flex-shrink: 0;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .btn-p {
+        width: 100%;
+        padding: 14px;
+        background: var(--am);
+        color: #000;
+        border: none;
+        border-radius: 14px;
+        font-family: "Sora", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: auto;
+        transition: opacity 0.15s;
+      }
+      .btn-p:active {
+        opacity: 0.8;
+      }
+      /* REGISTER */
+      .s-reg {
+        background: var(--bg);
+        min-height: 100%;
+        padding: 20px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .stitle {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--tx);
+      }
+      .ssub {
+        font-size: 12px;
+        color: var(--mu);
+        margin-top: 2px;
+        line-height: 1.5;
+      }
+      .field label {
+        display: block;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--mu);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+      .field input {
+        width: 100%;
+        background: var(--card);
+        border: 1px solid var(--bd);
+        border-radius: 10px;
+        padding: 11px 13px;
+        font-family: "Sora", sans-serif;
+        font-size: 13px;
+        color: var(--tx);
+        outline: none;
+        transition: border 0.15s;
+      }
+      .field input:focus {
+        border-color: var(--am);
+      }
+      .field input::placeholder {
+        color: var(--mu2);
+      }
+      .privacy {
+        background: var(--card);
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 11px;
+        color: var(--mu);
+        line-height: 1.5;
+      }
+      /* MENU */
+      .s-menu {
+        background: var(--bg);
+        display: flex;
+        flex-direction: column;
+      }
+      .mheader {
+        padding: 16px 18px 0;
+      }
+      .mheader-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .mheader h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        color: var(--tx);
+      }
+      .cpill {
+        background: var(--am);
+        color: #000;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        font-family: "Sora", sans-serif;
+      }
+      .cats-wrap {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 18px 12px;
+        scrollbar-width: none;
+      }
+      .cats-wrap::-webkit-scrollbar {
+        display: none;
+      }
+      .catbtn {
+        flex-shrink: 0;
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid var(--bd);
+        background: transparent;
+        color: var(--mu);
+        font-family: "Sora", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .catbtn.active {
+        background: var(--am);
+        color: #000;
+        border-color: var(--am);
+      }
+      .items-list {
+        padding: 0 18px 90px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .mitem {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 12px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        border: 1px solid var(--bd);
+      }
+      .iemoji {
+        width: 48px;
+        height: 48px;
+        background: var(--card2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .iinfo {
+        flex: 1;
+        min-width: 0;
+      }
+      .iname {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tx);
+      }
+      .idesc {
+        font-size: 11px;
+        color: var(--mu);
+        margin-top: 2px;
+        line-height: 1.4;
+      }
+      .iprice {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--am);
+        margin-top: 4px;
+      }
+      .qctrl {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .qbtn {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        border: none;
+        background: var(--card2);
+        color: var(--tx);
+        font-size: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.15s;
+        font-family: "Sora", sans-serif;
+      }
+      .qbtn.plus {
+        background: var(--am);
+        color: #000;
+        font-weight: 700;
+      }
+      .qbtn:active {
+        opacity: 0.7;
+      }
+      .qnum {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tx);
+        min-width: 16px;
+        text-align: center;
+      }
+      .cartbar {
+        position: sticky;
+        bottom: 0;
+        padding: 12px 18px 10px;
+        background: linear-gradient(to top, var(--bg) 70%, transparent);
+      }
+      .cartbar-inner {
+        background: var(--am);
+        border-radius: 14px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        font-family: "Sora", sans-serif;
+      }
+      .cartbar-inner:active {
+        opacity: 0.85;
+      }
+      .cbadge {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #000;
+      }
+      .clabel {
+        font-size: 13px;
+        font-weight: 700;
+        color: #000;
+      }
+      .ctotal {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000;
+      }
+      /* CART */
+      .s-cart {
+        background: var(--bg);
+        min-height: 100%;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .back-btn {
+        background: none;
+        border: none;
+        color: var(--mu);
+        font-family: "Sora", sans-serif;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 0;
+        text-align: left;
+      }
+      .bcard {
+        background: var(--card);
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid var(--bd);
+      }
+      .bcard-hd {
+        padding: 10px 14px;
+        background: var(--card2);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--mu);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .crow {
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--bd);
+        gap: 10px;
+      }
+      .crow:last-child {
+        border-bottom: none;
+      }
+      .cem {
+        font-size: 18px;
+        width: 26px;
+      }
+      .cnm {
+        flex: 1;
+        font-size: 13px;
+        color: var(--tx);
+      }
+      .cqt {
+        font-size: 12px;
+        color: var(--mu);
+      }
+      .cpr {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--am);
+      }
+      .bill {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px;
+        border: 1px solid var(--bd);
+      }
+      .bline {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--mu);
+        padding: 3px 0;
+      }
+      .btotal {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--tx);
+        padding: 10px 0 4px;
+        border-top: 1px solid var(--bd);
+        margin-top: 6px;
+      }
+      /* PAYMENT */
+      .s-pay {
+        background: var(--bg);
+        min-height: 100%;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .payopts {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .payopt {
+        background: var(--card);
+        border: 1.5px solid var(--bd);
+        border-radius: 14px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .payopt.sel {
+        border-color: var(--am);
+        background: rgba(245, 158, 11, 0.07);
+      }
+      .pico {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .pnm {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tx);
+      }
+      .pds {
+        font-size: 11px;
+        color: var(--mu);
+        margin-top: 1px;
+      }
+      .radio {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--bd);
+        flex-shrink: 0;
+        margin-left: auto;
+        position: relative;
+      }
+      .radio.on {
+        border-color: var(--am);
+      }
+      .radio.on::after {
+        content: "";
+        position: absolute;
+        width: 9px;
+        height: 9px;
+        background: var(--am);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .snote {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--mu);
+      }
+      .sdot {
+        width: 6px;
+        height: 6px;
+        background: var(--gr);
+        border-radius: 50%;
+      }
+      /* TICKET */
+      .s-tick {
+        background: var(--bg);
+        min-height: 100%;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+      .tchk {
+        width: 60px;
+        height: 60px;
+        background: rgba(48, 209, 88, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        border: 2px solid rgba(48, 209, 88, 0.3);
+      }
+      .tcard {
+        width: 100%;
+        background: var(--card);
+        border-radius: 16px;
+        border: 1.5px dashed var(--bd);
+        padding: 16px;
+        text-align: center;
+      }
+      .tnum {
+        font-family: "Playfair Display", serif;
+        font-size: 52px;
+        font-weight: 700;
+        color: var(--am);
+        line-height: 1;
+      }
+      .tlbl {
+        font-size: 11px;
+        color: var(--mu);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      .tmeta {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 10px;
+      }
+      .tmv {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tx);
+      }
+      .tml {
+        font-size: 10px;
+        color: var(--mu);
+      }
+      .timerbox {
+        width: 100%;
+        background: var(--card2);
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+        border: 1px solid var(--bd);
+      }
+      .twait {
+        font-size: 12px;
+        color: var(--am);
+        animation: blink 1.5s infinite;
+        font-weight: 500;
+      }
+      .twait-hint {
+        font-size: 11px;
+        color: var(--am);
+        margin-top: 8px;
+        font-style: italic;
+      }
+      .tval {
+        font-size: 44px;
+        font-weight: 700;
+        color: var(--tx);
+        letter-spacing: 2px;
+        font-variant-numeric: tabular-nums;
+      }
+      .tsub {
+        font-size: 11px;
+        color: var(--mu);
+        margin-top: 4px;
+      }
+      .tstart {
+        font-size: 10px;
+        color: var(--gr);
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .wnote {
+        width: 100%;
+        background: rgba(48, 209, 88, 0.1);
+        border: 1px solid rgba(48, 209, 88, 0.2);
+        border-radius: 12px;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--gr);
+      }
+      .btn-fb {
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+        border: 1.5px solid var(--bd);
+        border-radius: 14px;
+        color: var(--mu);
+        font-family: "Sora", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 4px;
+      }
+      .btn-fb:hover {
+        border-color: var(--am);
+        color: var(--am);
+      }
+      /* FEEDBACK */
+      .s-fb {
+        background: var(--bg);
+        min-height: 100%;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .stars {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        padding: 8px 0;
+      }
+      .star {
+        font-size: 30px;
+        cursor: pointer;
+        color: var(--bd);
+        transition:
+          transform 0.1s,
+          color 0.1s;
+        line-height: 1;
+      }
+      .star.lit {
+        color: var(--am);
+      }
+      .star:active {
+        transform: scale(1.2);
+      }
+      .rlabel {
+        text-align: center;
+        font-size: 13px;
+        color: var(--mu);
+        height: 20px;
+      }
+      .fbtxt {
+        width: 100%;
+        background: var(--card);
+        border: 1px solid var(--bd);
+        border-radius: 12px;
+        padding: 12px;
+        font-family: "Sora", sans-serif;
+        font-size: 13px;
+        color: var(--tx);
+        outline: none;
+        resize: none;
+        height: 88px;
+        transition: border 0.15s;
+      }
+      .fbtxt:focus {
+        border-color: var(--am);
+      }
+      .fb-done {
+        text-align: center;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 40px 0;
+      }
+      /* DASHBOARD */
+      .dashboard {
+        flex: 1;
+        min-width: 0;
+      }
+      .dash-hd {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .dash-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--tx);
+      }
+      .dash-sub {
+        font-size: 12px;
+        color: var(--mu);
+        margin-top: 2px;
+      }
+      .live {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--gr);
+        font-weight: 500;
+      }
+      .ldot {
+        width: 8px;
+        height: 8px;
+        background: var(--gr);
+        border-radius: 50%;
+        animation: blink 1.5s infinite;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .scard {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px 14px 14px 18px;
+        border: 1px solid var(--bd);
+        position: relative;
+        overflow: hidden;
+      }
+      .scard-accent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        border-radius: 4px 0 0 4px;
+      }
+      .sval {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--tx);
+        font-family: "Playfair Display", serif;
+      }
+      .slbl {
+        font-size: 11px;
+        color: var(--mu);
+        margin-top: 2px;
+      }
+      .sec-lbl {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--mu);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+      .orders-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .ocard {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px;
+        border: 1px solid var(--bd);
+        border-left: 3px solid var(--bd);
+        transition: all 0.3s;
+      }
+      .ocard.pending {
+        border-left-color: var(--am);
+      }
+      .ocard.confirmed {
+        border-left-color: var(--bl);
+      }
+      .ocard.preparing {
+        border-left-color: var(--pu);
+      }
+      .ocard.delivered {
+        border-left-color: var(--gr);
+        opacity: 0.65;
+      }
+      .ocard-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .otag {
+        background: rgba(10, 132, 255, 0.15);
+        color: var(--bl);
+        border-radius: 6px;
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 700;
+        display: inline-block;
+      }
+      .oname {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--tx);
+        margin-top: 4px;
+      }
+      .otime {
+        font-size: 11px;
+        color: var(--mu);
+      }
+      .ototal {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--am);
+      }
+      .oitems {
+        font-size: 12px;
+        color: var(--mu);
+        background: var(--card2);
+        border-radius: 8px;
+        padding: 8px 10px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+      .oactions {
+        display: flex;
+        gap: 8px;
+      }
+      .abtn {
+        flex: 1;
+        padding: 8px;
+        border-radius: 10px;
+        border: none;
+        font-family: "Sora", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+      }
+      .abtn:active {
+        opacity: 0.7;
+      }
+      .abtn.confirm {
+        background: var(--am);
+        color: #000;
+      }
+      .abtn.prepare {
+        background: rgba(191, 90, 242, 0.2);
+        color: var(--pu);
+        border: 1px solid rgba(191, 90, 242, 0.35);
+      }
+      .abtn.deliver {
+        background: rgba(48, 209, 88, 0.15);
+        color: var(--gr);
+        border: 1px solid rgba(48, 209, 88, 0.3);
+      }
+      .abtn.done {
+        background: rgba(48, 209, 88, 0.1);
+        color: var(--gr);
+        border: 1px solid rgba(48, 209, 88, 0.2);
+        cursor: default;
+      }
+      .sbadge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 4px;
+        display: inline-block;
+      }
+      .sbadge.pending {
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--am);
+      }
+      .sbadge.confirmed {
+        background: rgba(10, 132, 255, 0.15);
+        color: var(--bl);
+      }
+      .sbadge.preparing {
+        background: rgba(191, 90, 242, 0.15);
+        color: var(--pu);
+      }
+      .sbadge.delivered {
+        background: rgba(48, 209, 88, 0.15);
+        color: var(--gr);
+      }
+      .empty {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--mu2);
+      }
+      .sync-msg {
+        background: rgba(48, 209, 88, 0.1);
+        border: 1px solid rgba(48, 209, 88, 0.25);
+        border-radius: 12px;
+        padding: 10px 16px;
+        font-size: 12px;
+        color: var(--gr);
+        margin-bottom: 14px;
+        animation: fadeUp 0.3s ease;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">
+      <div class="logo"><span>Q</span>Table</div>
+      <div class="tabnav">
+        <button id="tab-c" class="active">📱 Customer Demo</button>
+        <button id="tab-d">🖥️ Cashier Dashboard</button>
       </div>
-      <div class="live"><div class="ldot"></div>Live</div>
+      <div class="demo-badge">🔴 Live Demo</div>
     </div>
-    <div class="stats-grid">
-      <div class="scard"><div class="scard-accent" style="background:var(--am)"></div><div class="sval" id="s-pend">0</div><div class="slbl">Pending</div></div>
-      <div class="scard"><div class="scard-accent" style="background:var(--pu)"></div><div class="sval" id="s-prep">0</div><div class="slbl">Preparing</div></div>
-      <div class="scard"><div class="scard-accent" style="background:var(--gr)"></div><div class="sval" id="s-done">0</div><div class="slbl">Delivered</div></div>
-      <div class="scard"><div class="scard-accent" style="background:var(--bl)"></div><div class="sval" id="s-rev">৳0</div><div class="slbl">Revenue</div></div>
+
+    <div class="layout">
+      <div class="phone-outer" id="phone-side">
+        <div class="phone-frame">
+          <div class="phone-notch"><div class="notch-pill"></div></div>
+          <div class="phone-screen" id="pscreen"></div>
+          <div class="phone-home"><div class="home-bar"></div></div>
+        </div>
+        <div class="phone-label">Table 04 · Spice Garden</div>
+        <div class="flow-steps" id="fsteps"></div>
+        <button class="reset-btn" id="reset-btn">↺ Reset Demo</button>
+      </div>
+
+      <div class="dashboard" id="dash-side" style="display: none">
+        <div id="sync-area"></div>
+        <div class="dash-hd">
+          <div>
+            <div class="dash-title">Spice Garden · Order Dashboard</div>
+            <div class="dash-sub">Real-time order management</div>
+          </div>
+          <div class="live">
+            <div class="ldot"></div>
+            Live
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="scard">
+            <div class="scard-accent" style="background: var(--am)"></div>
+            <div class="sval" id="s-pend">0</div>
+            <div class="slbl">Pending</div>
+          </div>
+          <div class="scard">
+            <div class="scard-accent" style="background: var(--pu)"></div>
+            <div class="sval" id="s-prep">0</div>
+            <div class="slbl">Preparing</div>
+          </div>
+          <div class="scard">
+            <div class="scard-accent" style="background: var(--gr)"></div>
+            <div class="sval" id="s-done">0</div>
+            <div class="slbl">Delivered</div>
+          </div>
+          <div class="scard">
+            <div class="scard-accent" style="background: var(--bl)"></div>
+            <div class="sval" id="s-rev">৳0</div>
+            <div class="slbl">Revenue</div>
+          </div>
+        </div>
+        <div class="sec-lbl">Active Orders</div>
+        <div class="orders-wrap" id="orders-wrap"></div>
+      </div>
     </div>
-    <div class="sec-lbl">Active Orders</div>
-    <div class="orders-wrap" id="orders-wrap"></div>
-  </div>
-</div>
 
-<script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
-const MENU = {
-  "Rice & Biryani":[
-    {id:1,name:"Kacchi Biryani",price:280,emoji:"🍛",desc:"Slow-cooked mutton with fragrant basmati"},
-    {id:2,name:"Mutton Tehari",price:220,emoji:"🍚",desc:"Spiced rice with tender mutton pieces"},
-    {id:3,name:"Plain Polao",price:120,emoji:"🌾",desc:"Aromatic white rice cooked with ghee"},
-  ],
-  "Grills & Kebab":[
-    {id:4,name:"Chicken Roast",price:220,emoji:"🍗",desc:"Half chicken marinated with 12 spices"},
-    {id:5,name:"Beef Boti Kabab",price:280,emoji:"🥩",desc:"Juicy beef chunks on skewer, mint chutney"},
-    {id:6,name:"Seekh Kebab",price:200,emoji:"🍢",desc:"Minced beef with herbs, charcoal smoked"},
-  ],
-  "Drinks":[
-    {id:7,name:"Borhani",price:50,emoji:"🥛",desc:"Traditional spiced yogurt drink"},
-    {id:8,name:"Mango Lassi",price:80,emoji:"🥭",desc:"Fresh mango blended with sweet yogurt"},
-    {id:9,name:"Cold Water",price:20,emoji:"💧",desc:"Chilled mineral water 500ml"},
-  ],
-  "Desserts":[
-    {id:10,name:"Firni",price:80,emoji:"🍮",desc:"Creamy rice pudding with rose water"},
-    {id:11,name:"Zarda",price:90,emoji:"🌼",desc:"Sweet saffron rice with nuts and raisins"},
-  ],
-};
-const CATS = Object.keys(MENU);
-const ALL_ITEMS = Object.values(MENU).flat();
-const SCREENS = ['welcome','register','menu','cart','payment','ticket','feedback'];
-const SLABELS = ['Welcome & WiFi','Enter your info','Browse menu','Review order','Payment','Your ticket','Feedback'];
-const RLABELS = ['','Poor 😔','Fair 😐','Good 😊','Great 😄','Excellent! 🤩'];
+    <script>
+      // ── DATA ──────────────────────────────────────────────────────────────────────
+      const MENU = {
+        "Rice & Biryani": [
+          {
+            id: 1,
+            name: "Kacchi Biryani",
+            price: 280,
+            emoji: "🍛",
+            desc: "Slow-cooked mutton with fragrant basmati",
+          },
+          {
+            id: 2,
+            name: "Mutton Tehari",
+            price: 220,
+            emoji: "🍚",
+            desc: "Spiced rice with tender mutton pieces",
+          },
+          {
+            id: 3,
+            name: "Plain Polao",
+            price: 120,
+            emoji: "🌾",
+            desc: "Aromatic white rice cooked with ghee",
+          },
+        ],
+        "Grills & Kebab": [
+          {
+            id: 4,
+            name: "Chicken Roast",
+            price: 220,
+            emoji: "🍗",
+            desc: "Half chicken marinated with 12 spices",
+          },
+          {
+            id: 5,
+            name: "Beef Boti Kabab",
+            price: 280,
+            emoji: "🥩",
+            desc: "Juicy beef chunks on skewer, mint chutney",
+          },
+          {
+            id: 6,
+            name: "Seekh Kebab",
+            price: 200,
+            emoji: "🍢",
+            desc: "Minced beef with herbs, charcoal smoked",
+          },
+        ],
+        Drinks: [
+          {
+            id: 7,
+            name: "Borhani",
+            price: 50,
+            emoji: "🥛",
+            desc: "Traditional spiced yogurt drink",
+          },
+          {
+            id: 8,
+            name: "Mango Lassi",
+            price: 80,
+            emoji: "🥭",
+            desc: "Fresh mango blended with sweet yogurt",
+          },
+          {
+            id: 9,
+            name: "Cold Water",
+            price: 20,
+            emoji: "💧",
+            desc: "Chilled mineral water 500ml",
+          },
+        ],
+        Desserts: [
+          {
+            id: 10,
+            name: "Firni",
+            price: 80,
+            emoji: "🍮",
+            desc: "Creamy rice pudding with rose water",
+          },
+          {
+            id: 11,
+            name: "Zarda",
+            price: 90,
+            emoji: "🌼",
+            desc: "Sweet saffron rice with nuts and raisins",
+          },
+        ],
+      };
+      const CATS = Object.keys(MENU);
+      const ALL_ITEMS = Object.values(MENU).flat();
+      const SCREENS = [
+        "welcome",
+        "register",
+        "menu",
+        "cart",
+        "payment",
+        "ticket",
+        "feedback",
+      ];
+      const SLABELS = [
+        "Welcome & WiFi",
+        "Enter your info",
+        "Browse menu",
+        "Review order",
+        "Payment",
+        "Your ticket",
+        "Feedback",
+      ];
+      const RLABELS = [
+        "",
+        "Poor 😔",
+        "Fair 😐",
+        "Good 😊",
+        "Great 😄",
+        "Excellent! 🤩",
+      ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let S = {
-  mode:'customer', screen:'welcome',
-  name:'', phone:'', email:'',
-  cart:{}, cat:'Rice & Biryani',
-  payment:null, orders:[], orderId:null,
-  orderNum:null, timerSecs:null, timerOn:false, timerRef:null,
-  rating:0, fbText:'', fbDone:false, syncMsg:null,
-};
+      // ── STATE ─────────────────────────────────────────────────────────────────────
+      let S = {
+        mode: "customer",
+        screen: "welcome",
+        name: "",
+        phone: "",
+        email: "",
+        cart: {},
+        cat: "Rice & Biryani",
+        payment: null,
+        orders: [],
+        orderId: null,
+        orderNum: null,
+        timerSecs: null,
+        timerOn: false,
+        timerRef: null,
+        rating: 0,
+        fbText: "",
+        fbDone: false,
+        syncMsg: null,
+      };
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
-const getItem = id => ALL_ITEMS.find(i => i.id === +id);
-const cartEntries = () => Object.entries(S.cart).filter(([,q]) => q > 0);
-const cartCount = () => cartEntries().reduce((s,[,q]) => s + +q, 0);
-const cartTotal = () => cartEntries().reduce((s,[id,q]) => s + getItem(id).price * q, 0);
-const fmt = s => `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-const el = id => document.getElementById(id);
+      // ── HELPERS ───────────────────────────────────────────────────────────────────
+      const getItem = (id) => ALL_ITEMS.find((i) => i.id === +id);
+      const cartEntries = () => Object.entries(S.cart).filter(([, q]) => q > 0);
+      const cartCount = () => cartEntries().reduce((s, [, q]) => s + +q, 0);
+      const cartTotal = () =>
+        cartEntries().reduce((s, [id, q]) => s + getItem(id).price * q, 0);
+      const fmt = (s) =>
+        `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+      const el = (id) => document.getElementById(id);
 
-// ── TIMER ─────────────────────────────────────────────────────────────────────
-function startTimer() {
-  if (S.timerRef) clearInterval(S.timerRef);
-  S.timerSecs = 20*60; S.timerOn = true;
-  S.timerRef = setInterval(() => {
-    if (S.timerSecs > 0) { S.timerSecs--; if (S.screen==='ticket') renderScreen(); }
-    else { clearInterval(S.timerRef); S.timerOn = false; }
-  }, 1000);
-  renderScreen(); renderDash();
-}
+      // ── TIMER ─────────────────────────────────────────────────────────────────────
+      function startTimer() {
+        if (S.timerRef) clearInterval(S.timerRef);
+        S.timerSecs = 20 * 60;
+        S.timerOn = true;
+        S.timerRef = setInterval(() => {
+          if (S.timerSecs > 0) {
+            S.timerSecs--;
+            if (S.screen === "ticket") renderScreen();
+          } else {
+            clearInterval(S.timerRef);
+            S.timerOn = false;
+          }
+        }, 1000);
+        renderScreen();
+        renderDash();
+      }
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderScreen() {
-  const ps = el('pscreen'); if (!ps) return;
-  const screens = {
-    welcome: rWelcome, register: rRegister, menu: rMenu,
-    cart: rCart, payment: rPay, ticket: rTicket, feedback: rFeedback
-  };
-  ps.innerHTML = (screens[S.screen] || rWelcome)();
-  renderFlowSteps();
-}
+      // ── RENDER ────────────────────────────────────────────────────────────────────
+      function renderScreen() {
+        const ps = el("pscreen");
+        if (!ps) return;
+        const screens = {
+          welcome: rWelcome,
+          register: rRegister,
+          menu: rMenu,
+          cart: rCart,
+          payment: rPay,
+          ticket: rTicket,
+          feedback: rFeedback,
+        };
+        ps.innerHTML = (screens[S.screen] || rWelcome)();
+        renderFlowSteps();
+      }
 
-function rWelcome() {
-  return `<div class="screen s-welcome">
+      function rWelcome() {
+        return `<div class="screen s-welcome">
     <div class="rest-area">
       <div class="rest-emblem">🍽️</div>
       <div class="rest-name">Spice Garden</div>
@@ -310,10 +1392,10 @@ function rWelcome() {
     </div>
     <button class="btn-p" data-go="register">Start Ordering →</button>
   </div>`;
-}
+      }
 
-function rRegister() {
-  return `<div class="screen s-reg">
+      function rRegister() {
+        return `<div class="screen s-reg">
     <div><div class="stitle">Before we start</div><div class="ssub">We'll send your bill to WhatsApp & email.</div></div>
     <div class="field"><label>Your name</label><input id="f-name" type="text" placeholder="Enter your full name" value="${S.name}"></div>
     <div class="field"><label>WhatsApp / Mobile</label><input id="f-phone" type="tel" placeholder="+880 1700-000000" value="${S.phone}"></div>
@@ -321,25 +1403,26 @@ function rRegister() {
     <div class="privacy">🔒 Your info is only used for order confirmation. We never share it.</div>
     <button class="btn-p" data-go="menu">Browse Menu →</button>
   </div>`;
-}
+      }
 
-function rMenu() {
-  const items = MENU[S.cat];
-  const count = cartCount();
-  return `<div class="screen s-menu">
+      function rMenu() {
+        const items = MENU[S.cat];
+        const count = cartCount();
+        return `<div class="screen s-menu">
     <div class="mheader">
       <div class="mheader-row">
         <h2>Menu</h2>
-        ${count > 0 ? `<button class="cpill" data-go="cart">🛒 ${count} items</button>` : ''}
+        ${count > 0 ? `<button class="cpill" data-go="cart">🛒 ${count} items</button>` : ""}
       </div>
     </div>
     <div class="cats-wrap">
-      ${CATS.map(c => `<button class="catbtn${c===S.cat?' active':''}" data-cat="${c}">${c}</button>`).join('')}
+      ${CATS.map((c) => `<button class="catbtn${c === S.cat ? " active" : ""}" data-cat="${c}">${c}</button>`).join("")}
     </div>
     <div class="items-list">
-      ${items.map(item => {
-        const q = S.cart[item.id]||0;
-        return `<div class="mitem">
+      ${items
+        .map((item) => {
+          const q = S.cart[item.id] || 0;
+          return `<div class="mitem">
           <div class="iemoji">${item.emoji}</div>
           <div class="iinfo">
             <div class="iname">${item.name}</div>
@@ -347,32 +1430,44 @@ function rMenu() {
             <div class="iprice">৳ ${item.price}</div>
           </div>
           <div class="qctrl">
-            ${q > 0 ? `<button class="qbtn" data-dec="${item.id}">−</button><span class="qnum">${q}</span>` : ''}
+            ${q > 0 ? `<button class="qbtn" data-dec="${item.id}">−</button><span class="qnum">${q}</span>` : ""}
             <button class="qbtn plus" data-inc="${item.id}">+</button>
           </div>
         </div>`;
-      }).join('')}
+        })
+        .join("")}
     </div>
-    ${count > 0 ? `<div class="cartbar"><button class="cartbar-inner" data-go="cart">
+    ${
+      count > 0
+        ? `<div class="cartbar"><button class="cartbar-inner" data-go="cart">
       <div style="display:flex;align-items:center;gap:8px"><span class="cbadge">${count}</span><span class="clabel">View Order</span></div>
       <span class="ctotal">৳ ${cartTotal()}</span>
-    </button></div>` : ''}
+    </button></div>`
+        : ""
+    }
   </div>`;
-}
+      }
 
-function rCart() {
-  const entries = cartEntries();
-  const sub = cartTotal(), vat = Math.round(sub*.05), grand = sub+vat;
-  return `<div class="screen s-cart">
+      function rCart() {
+        const entries = cartEntries();
+        const sub = cartTotal(),
+          vat = Math.round(sub * 0.05),
+          grand = sub + vat;
+        return `<div class="screen s-cart">
     <button class="back-btn" data-go="menu">← Back to menu</button>
     <div class="stitle">Your Order</div>
     <div class="bcard">
       <div class="bcard-hd">📍 Table 04 · Spice Garden</div>
-      ${entries.map(([id,q]) => { const it=getItem(id); return `<div class="crow">
+      ${entries
+        .map(([id, q]) => {
+          const it = getItem(id);
+          return `<div class="crow">
         <span class="cem">${it.emoji}</span>
         <span class="cnm">${it.name} <span class="cqt">×${q}</span></span>
-        <span class="cpr">৳ ${it.price*q}</span>
-      </div>`}).join('')}
+        <span class="cpr">৳ ${it.price * q}</span>
+      </div>`;
+        })
+        .join("")}
     </div>
     <div class="bill">
       <div class="bline"><span>Subtotal</span><span>৳ ${sub}</span></div>
@@ -381,44 +1476,68 @@ function rCart() {
     </div>
     <button class="btn-p" data-go="payment">Proceed to Payment →</button>
   </div>`;
-}
+      }
 
-function rPay() {
-  const grand = cartTotal()+Math.round(cartTotal()*.05);
-  const methods = [
-    {id:'bkash',emoji:'💚',name:'bKash',desc:'Mobile banking · Instant',color:'#E2136E'},
-    {id:'nagad',emoji:'🧡',name:'Nagad',desc:'Digital financial service',color:'#F7941D'},
-    {id:'card', emoji:'💳',name:'Debit / Credit Card',desc:'Visa · Mastercard · AmEx',color:'var(--bl)'},
-  ];
-  return `<div class="screen s-pay">
+      function rPay() {
+        const grand = cartTotal() + Math.round(cartTotal() * 0.05);
+        const methods = [
+          {
+            id: "bkash",
+            emoji: "💚",
+            name: "bKash",
+            desc: "Mobile banking · Instant",
+            color: "#E2136E",
+          },
+          {
+            id: "nagad",
+            emoji: "🧡",
+            name: "Nagad",
+            desc: "Digital financial service",
+            color: "#F7941D",
+          },
+          {
+            id: "card",
+            emoji: "💳",
+            name: "Debit / Credit Card",
+            desc: "Visa · Mastercard · AmEx",
+            color: "var(--bl)",
+          },
+        ];
+        return `<div class="screen s-pay">
     <button class="back-btn" data-go="cart">← Back to cart</button>
     <div class="stitle">Payment</div>
     <div class="bill" style="margin-bottom:0"><div class="btotal" style="margin:0;padding:6px 0;border:none"><span>Amount to pay</span><span>৳ ${grand}</span></div></div>
     <div class="payopts">
-      ${methods.map(m => `<div class="payopt${S.payment===m.id?' sel':''}" data-pay="${m.id}">
+      ${methods
+        .map(
+          (
+            m,
+          ) => `<div class="payopt${S.payment === m.id ? " sel" : ""}" data-pay="${m.id}">
         <div class="pico" style="background:${m.color}20">${m.emoji}</div>
         <div><div class="pnm">${m.name}</div><div class="pds">${m.desc}</div></div>
-        <div class="radio${S.payment===m.id?' on':''}"></div>
-      </div>`).join('')}
+        <div class="radio${S.payment === m.id ? " on" : ""}"></div>
+      </div>`,
+        )
+        .join("")}
     </div>
     <div class="snote"><div class="sdot"></div><span>SSL secured · Your data is safe</span></div>
-    <button class="btn-p" ${!S.payment?'style="opacity:.45;pointer-events:none"':''} data-action="place-order">
-      ${S.payment ? `Pay ৳ ${grand} via ${S.payment}` : 'Select a payment method'}
+    <button class="btn-p" ${!S.payment ? 'style="opacity:.45;pointer-events:none"' : ""} data-action="place-order">
+      ${S.payment ? `Pay ৳ ${grand} via ${S.payment}` : "Select a payment method"}
     </button>
   </div>`;
-}
+      }
 
-function rTicket() {
-  const order = S.orders.find(o => o.id===S.orderId);
-  const confirmed = order && order.status !== 'pending';
-  const grand = cartTotal()+Math.round(cartTotal()*.05);
-  const cnt = cartEntries().reduce((s,[,q])=>s+q,0);
-  return `<div class="screen s-tick">
+      function rTicket() {
+        const order = S.orders.find((o) => o.id === S.orderId);
+        const confirmed = order && order.status !== "pending";
+        const grand = cartTotal() + Math.round(cartTotal() * 0.05);
+        const cnt = cartEntries().reduce((s, [, q]) => s + q, 0);
+        return `<div class="screen s-tick">
     <div class="tchk">✓</div>
     <div style="text-align:center"><div class="stitle">Order Confirmed!</div><div class="ssub" style="margin-top:4px">Payment received · Bill sent to WhatsApp</div></div>
     <div class="tcard">
       <div class="tlbl">Order Number</div>
-      <div class="tnum">#${S.orderNum||'---'}</div>
+      <div class="tnum">#${S.orderNum || "---"}</div>
       <div class="tmeta">
         <div><div class="tmv">Table 04</div><div class="tml">Table</div></div>
         <div><div class="tmv">${cnt} items</div><div class="tml">Ordered</div></div>
@@ -426,70 +1545,80 @@ function rTicket() {
       </div>
     </div>
     <div class="timerbox">
-      ${!confirmed
-        ? `<div class="twait">⏳ Waiting for cashier confirmation...</div>
+      ${
+        !confirmed
+          ? `<div class="twait">⏳ Waiting for cashier confirmation...</div>
            <div class="twait-hint">→ Go to Cashier Dashboard and confirm!</div>`
-        : (S.timerSecs!==null
+          : S.timerSecs !== null
             ? `<div class="tsub">Estimated wait time</div>
                <div class="tval">${fmt(S.timerSecs)}</div>
                <div class="tstart">✓ Timer started after cashier confirmed</div>`
-            : `<div style="color:var(--gr);font-weight:600;font-size:14px">✓ Order is being prepared</div>`)
+            : `<div style="color:var(--gr);font-weight:600;font-size:14px">✓ Order is being prepared</div>`
       }
     </div>
-    <div class="wnote">📲 <span>Bill sent to ${S.phone||'+880 1700-000000'}</span></div>
-    ${confirmed ? `<button class="btn-fb" data-go="feedback">Rate your experience →</button>` : ''}
+    <div class="wnote">📲 <span>Bill sent to ${S.phone || "+880 1700-000000"}</span></div>
+    ${confirmed ? `<button class="btn-fb" data-go="feedback">Rate your experience →</button>` : ""}
   </div>`;
-}
+      }
 
-function rFeedback() {
-  if (S.fbDone) return `<div class="screen s-fb"><div class="fb-done">
+      function rFeedback() {
+        if (S.fbDone)
+          return `<div class="screen s-fb"><div class="fb-done">
     <div style="font-size:50px">🙏</div>
     <div class="stitle">Thank you!</div>
     <div class="ssub" style="text-align:center;line-height:1.6;margin-top:0">Your feedback helps us improve.<br>Enjoy your meal!</div>
     <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--am);font-style:italic">Come back soon.</div>
   </div></div>`;
-  return `<div class="screen s-fb">
+        return `<div class="screen s-fb">
     <div class="stitle">How was it?</div>
     <div class="ssub" style="margin-top:0">Order #${S.orderNum} · Spice Garden</div>
     <div style="text-align:center">
       <div style="font-size:12px;color:var(--mu);margin-bottom:6px">Tap to rate</div>
-      <div class="stars">${[1,2,3,4,5].map(n=>`<span class="star${n<=S.rating?' lit':''}" data-star="${n}">★</span>`).join('')}</div>
-      <div class="rlabel">${RLABELS[S.rating]||''}</div>
+      <div class="stars">${[1, 2, 3, 4, 5].map((n) => `<span class="star${n <= S.rating ? " lit" : ""}" data-star="${n}">★</span>`).join("")}</div>
+      <div class="rlabel">${RLABELS[S.rating] || ""}</div>
     </div>
     <div class="field"><label>What did you enjoy?</label>
       <textarea id="fb-txt" class="fbtxt" placeholder="The biryani was amazing...">${S.fbText}</textarea>
     </div>
-    <button class="btn-p" ${!S.rating?'style="opacity:.4;pointer-events:none"':''} data-action="submit-fb">Submit Feedback</button>
+    <button class="btn-p" ${!S.rating ? 'style="opacity:.4;pointer-events:none"' : ""} data-action="submit-fb">Submit Feedback</button>
   </div>`;
-}
+      }
 
-// ── DASHBOARD ─────────────────────────────────────────────────────────────────
-function renderDash() {
-  const pend = S.orders.filter(o=>o.status==='pending').length;
-  const prep = S.orders.filter(o=>['confirmed','preparing'].includes(o.status)).length;
-  const done = S.orders.filter(o=>o.status==='delivered').length;
-  const rev  = S.orders.filter(o=>o.status!=='pending').reduce((s,o)=>s+o.total,0);
-  el('s-pend').textContent = pend;
-  el('s-prep').textContent = prep;
-  el('s-done').textContent = done;
-  el('s-rev').textContent  = '৳'+rev;
+      // ── DASHBOARD ─────────────────────────────────────────────────────────────────
+      function renderDash() {
+        const pend = S.orders.filter((o) => o.status === "pending").length;
+        const prep = S.orders.filter((o) =>
+          ["confirmed", "preparing"].includes(o.status),
+        ).length;
+        const done = S.orders.filter((o) => o.status === "delivered").length;
+        const rev = S.orders
+          .filter((o) => o.status !== "pending")
+          .reduce((s, o) => s + o.total, 0);
+        el("s-pend").textContent = pend;
+        el("s-prep").textContent = prep;
+        el("s-done").textContent = done;
+        el("s-rev").textContent = "৳" + rev;
 
-  const sa = el('sync-area');
-  sa.innerHTML = S.syncMsg ? `<div class="sync-msg">🔔 ${S.syncMsg}</div>` : '';
+        const sa = el("sync-area");
+        sa.innerHTML = S.syncMsg
+          ? `<div class="sync-msg">🔔 ${S.syncMsg}</div>`
+          : "";
 
-  const ow = el('orders-wrap');
-  if (!S.orders.length) {
-    ow.innerHTML = `<div class="empty"><div style="font-size:36px;margin-bottom:10px">📋</div>
+        const ow = el("orders-wrap");
+        if (!S.orders.length) {
+          ow.innerHTML = `<div class="empty"><div style="font-size:36px;margin-bottom:10px">📋</div>
       <div style="font-size:14px;font-weight:500;color:var(--mu)">No orders yet</div>
       <div style="font-size:12px;color:var(--mu2);margin-top:4px">Orders will appear here in real time</div></div>`;
-    return;
-  }
-  ow.innerHTML = S.orders.map(o => `
+          return;
+        }
+        ow.innerHTML = S.orders
+          .map(
+            (o) => `
     <div class="ocard ${o.status}">
       <div class="ocard-top">
         <div>
           <span class="otag">${o.table}</span>
-          <div class="oname">${o.customer||'Customer'}</div>
+          <div class="oname">${o.customer || "Customer"}</div>
           <div class="otime">${o.time} · via ${o.payment}</div>
         </div>
         <div style="text-align:right">
@@ -497,162 +1626,203 @@ function renderDash() {
           <span class="sbadge ${o.status}">${o.status}</span>
         </div>
       </div>
-      <div class="oitems">${o.items.map(i=>`${i.name} × ${i.qty}`).join(' · ')}</div>
+      <div class="oitems">${o.items.map((i) => `${i.name} × ${i.qty}`).join(" · ")}</div>
       <div class="oactions">
-        ${o.status==='pending'
-          ? `<button class="abtn confirm" data-confirm="${o.id}">✓ Confirm Order</button>`
-          : o.status==='confirmed'
-          ? `<button class="abtn prepare" data-setstatus="${o.id}" data-to="preparing">👨‍🍳 Mark Preparing</button>`
-          : o.status==='preparing'
-          ? `<button class="abtn deliver" data-setstatus="${o.id}" data-to="delivered">🛎️ Mark Delivered</button>`
-          : `<button class="abtn done" disabled>✓ Delivered</button>`}
+        ${
+          o.status === "pending"
+            ? `<button class="abtn confirm" data-confirm="${o.id}">✓ Confirm Order</button>`
+            : o.status === "confirmed"
+              ? `<button class="abtn prepare" data-setstatus="${o.id}" data-to="preparing">👨‍🍳 Mark Preparing</button>`
+              : o.status === "preparing"
+                ? `<button class="abtn deliver" data-setstatus="${o.id}" data-to="delivered">🛎️ Mark Delivered</button>`
+                : `<button class="abtn done" disabled>✓ Delivered</button>`
+        }
       </div>
-    </div>`).join('');
-}
-
-function renderFlowSteps() {
-  const f = el('fsteps'); if (!f) return;
-  const idx = SCREENS.indexOf(S.screen);
-  f.innerHTML = SCREENS.map((s,i) =>
-    `<div class="flow-step ${i===idx?'active':i<idx?'done':''}">
-      <div class="fsdot"></div>${SLABELS[i]}
-    </div>`).join('');
-}
-
-// ── EVENTS ────────────────────────────────────────────────────────────────────
-function saveInputs() {
-  const fn = el('f-name'), fp = el('f-phone'), fe = el('f-email');
-  if (fn) S.name = fn.value;
-  if (fp) S.phone = fp.value;
-  if (fe) S.email = fe.value;
-  const ft = el('fb-txt');
-  if (ft) S.fbText = ft.value;
-}
-
-// Single delegated listener on phone screen
-el('pscreen').addEventListener('click', function(e) {
-  saveInputs();
-  const t = e.target.closest('[data-go],[data-cat],[data-inc],[data-dec],[data-pay],[data-action],[data-star]');
-  if (!t) return;
-
-  if (t.dataset.go) {
-    S.screen = t.dataset.go;
-    renderScreen();
-    return;
-  }
-  if (t.dataset.cat) {
-    S.cat = t.dataset.cat;
-    renderScreen();
-    return;
-  }
-  if (t.dataset.inc) {
-    const id = t.dataset.inc;
-    S.cart[id] = (S.cart[id]||0) + 1;
-    renderScreen();
-    return;
-  }
-  if (t.dataset.dec) {
-    const id = t.dataset.dec;
-    S.cart[id] = Math.max(0, (S.cart[id]||0) - 1);
-    renderScreen();
-    return;
-  }
-  if (t.dataset.pay) {
-    S.payment = t.dataset.pay;
-    renderScreen();
-    return;
-  }
-  if (t.dataset.star) {
-    S.rating = +t.dataset.star;
-    renderScreen();
-    return;
-  }
-  if (t.dataset.action === 'place-order') {
-    const grand = cartTotal()+Math.round(cartTotal()*.05);
-    const order = {
-      id: Date.now(),
-      table: 'Table 04',
-      customer: S.name || 'Customer',
-      phone: S.phone,
-      items: cartEntries().map(([id,q])=>({name:getItem(id).name,qty:q,price:getItem(id).price})),
-      total: grand,
-      status: 'pending',
-      time: new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
-      payment: S.payment,
-    };
-    S.orders.unshift(order);
-    S.orderId = order.id;
-    S.orderNum = Math.floor(Math.random()*900)+100;
-    S.timerSecs = null; S.timerOn = false;
-    S.screen = 'ticket';
-    renderScreen();
-    renderDash();
-    return;
-  }
-  if (t.dataset.action === 'submit-fb') {
-    S.fbDone = true;
-    renderScreen();
-    return;
-  }
-});
-
-// Dashboard events
-el('orders-wrap').addEventListener('click', function(e) {
-  const t = e.target.closest('[data-confirm],[data-setstatus]');
-  if (!t) return;
-  if (t.dataset.confirm) {
-    const id = +t.dataset.confirm;
-    const o = S.orders.find(x=>x.id===id);
-    if (o) {
-      o.status = 'confirmed';
-      if (id===S.orderId && !S.timerOn) {
-        S.syncMsg = '✓ Order confirmed — customer timer has started!';
-        setTimeout(()=>{S.syncMsg=null;renderDash();},4000);
-        startTimer();
+    </div>`,
+          )
+          .join("");
       }
+
+      function renderFlowSteps() {
+        const f = el("fsteps");
+        if (!f) return;
+        const idx = SCREENS.indexOf(S.screen);
+        f.innerHTML = SCREENS.map(
+          (s, i) =>
+            `<div class="flow-step ${i === idx ? "active" : i < idx ? "done" : ""}">
+      <div class="fsdot"></div>${SLABELS[i]}
+    </div>`,
+        ).join("");
+      }
+
+      // ── EVENTS ────────────────────────────────────────────────────────────────────
+      function saveInputs() {
+        const fn = el("f-name"),
+          fp = el("f-phone"),
+          fe = el("f-email");
+        if (fn) S.name = fn.value;
+        if (fp) S.phone = fp.value;
+        if (fe) S.email = fe.value;
+        const ft = el("fb-txt");
+        if (ft) S.fbText = ft.value;
+      }
+
+      // Single delegated listener on phone screen
+      el("pscreen").addEventListener("click", function (e) {
+        saveInputs();
+        const t = e.target.closest(
+          "[data-go],[data-cat],[data-inc],[data-dec],[data-pay],[data-action],[data-star]",
+        );
+        if (!t) return;
+
+        if (t.dataset.go) {
+          S.screen = t.dataset.go;
+          renderScreen();
+          return;
+        }
+        if (t.dataset.cat) {
+          S.cat = t.dataset.cat;
+          renderScreen();
+          return;
+        }
+        if (t.dataset.inc) {
+          const id = t.dataset.inc;
+          S.cart[id] = (S.cart[id] || 0) + 1;
+          renderScreen();
+          return;
+        }
+        if (t.dataset.dec) {
+          const id = t.dataset.dec;
+          S.cart[id] = Math.max(0, (S.cart[id] || 0) - 1);
+          renderScreen();
+          return;
+        }
+        if (t.dataset.pay) {
+          S.payment = t.dataset.pay;
+          renderScreen();
+          return;
+        }
+        if (t.dataset.star) {
+          S.rating = +t.dataset.star;
+          renderScreen();
+          return;
+        }
+        if (t.dataset.action === "place-order") {
+          const grand = cartTotal() + Math.round(cartTotal() * 0.05);
+          const order = {
+            id: Date.now(),
+            table: "Table 04",
+            customer: S.name || "Customer",
+            phone: S.phone,
+            items: cartEntries().map(([id, q]) => ({
+              name: getItem(id).name,
+              qty: q,
+              price: getItem(id).price,
+            })),
+            total: grand,
+            status: "pending",
+            time: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            payment: S.payment,
+          };
+          S.orders.unshift(order);
+          S.orderId = order.id;
+          S.orderNum = Math.floor(Math.random() * 900) + 100;
+          S.timerSecs = null;
+          S.timerOn = false;
+          S.screen = "ticket";
+          renderScreen();
+          renderDash();
+          return;
+        }
+        if (t.dataset.action === "submit-fb") {
+          S.fbDone = true;
+          renderScreen();
+          return;
+        }
+      });
+
+      // Dashboard events
+      el("orders-wrap").addEventListener("click", function (e) {
+        const t = e.target.closest("[data-confirm],[data-setstatus]");
+        if (!t) return;
+        if (t.dataset.confirm) {
+          const id = +t.dataset.confirm;
+          const o = S.orders.find((x) => x.id === id);
+          if (o) {
+            o.status = "confirmed";
+            if (id === S.orderId && !S.timerOn) {
+              S.syncMsg = "✓ Order confirmed — customer timer has started!";
+              setTimeout(() => {
+                S.syncMsg = null;
+                renderDash();
+              }, 4000);
+              startTimer();
+            }
+            renderDash();
+            if (S.screen === "ticket") renderScreen();
+          }
+        }
+        if (t.dataset.setstatus) {
+          const id = +t.dataset.setstatus;
+          const o = S.orders.find((x) => x.id === id);
+          if (o) {
+            o.status = t.dataset.to;
+            renderDash();
+          }
+        }
+      });
+
+      // Tab switching
+      el("tab-c").addEventListener("click", () => {
+        S.mode = "customer";
+        el("tab-c").className = "active";
+        el("tab-d").className = "";
+        el("phone-side").style.display = "block";
+        el("dash-side").style.display = "none";
+        renderFlowSteps();
+      });
+      el("tab-d").addEventListener("click", () => {
+        S.mode = "cashier";
+        el("tab-d").className = "active";
+        el("tab-c").className = "";
+        el("phone-side").style.display = "none";
+        el("dash-side").style.display = "block";
+        renderDash();
+      });
+
+      // Reset
+      el("reset-btn").addEventListener("click", () => {
+        if (S.timerRef) clearInterval(S.timerRef);
+        Object.assign(S, {
+          screen: "welcome",
+          name: "",
+          phone: "",
+          email: "",
+          cart: {},
+          cat: "Rice & Biryani",
+          payment: null,
+          orderId: null,
+          orderNum: null,
+          timerSecs: null,
+          timerOn: false,
+          timerRef: null,
+          rating: 0,
+          fbText: "",
+          fbDone: false,
+          syncMsg: null,
+        });
+        renderScreen();
+        renderDash();
+        renderFlowSteps();
+      });
+
+      // ── INIT ──────────────────────────────────────────────────────────────────────
+      renderScreen();
+      renderFlowSteps();
       renderDash();
-      if (S.screen==='ticket') renderScreen();
-    }
-  }
-  if (t.dataset.setstatus) {
-    const id = +t.dataset.setstatus;
-    const o = S.orders.find(x=>x.id===id);
-    if (o) { o.status = t.dataset.to; renderDash(); }
-  }
-});
-
-// Tab switching
-el('tab-c').addEventListener('click', () => {
-  S.mode = 'customer';
-  el('tab-c').className = 'active'; el('tab-d').className = '';
-  el('phone-side').style.display = 'block';
-  el('dash-side').style.display = 'none';
-  renderFlowSteps();
-});
-el('tab-d').addEventListener('click', () => {
-  S.mode = 'cashier';
-  el('tab-d').className = 'active'; el('tab-c').className = '';
-  el('phone-side').style.display = 'none';
-  el('dash-side').style.display = 'block';
-  renderDash();
-});
-
-// Reset
-el('reset-btn').addEventListener('click', () => {
-  if (S.timerRef) clearInterval(S.timerRef);
-  Object.assign(S, {
-    screen:'welcome', name:'', phone:'', email:'',
-    cart:{}, cat:'Rice & Biryani', payment:null,
-    orderId:null, orderNum:null, timerSecs:null, timerOn:false, timerRef:null,
-    rating:0, fbText:'', fbDone:false, syncMsg:null,
-  });
-  renderScreen(); renderDash(); renderFlowSteps();
-});
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-renderScreen();
-renderFlowSteps();
-renderDash();
-</script>
-</body>
+    </script>
+  </body>
 </html>

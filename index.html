@@ -9,10 +9,11 @@
     :root {
       --am: #f59e0b;
       --bg: #0d0d0d;
-      --card: #1c1c1e;
-      --bd: #2c2c2e;
+      --card: rgba(28, 28, 30, 0.75);
+      --bd: rgba(44, 44, 46, 0.6);
       --tx: #f2f2f7;
-      --mu: #8e8e93;
+      --mu: #c7c7cc;
+      --mu-dim: #8e8e93;
     }
 
     * {
@@ -23,12 +24,44 @@
 
     body {
       font-family: "Sora", sans-serif;
-      background: var(--bg);
+      /* Smooth gradient overlay over your custom atmosphere image to ensure absolute readability */
+      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.92)), 
+                  url('ChatGPT Image May 21, 2026, 11_33_49 PM.png') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
       color: var(--tx);
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3); }
+      50% { box-shadow: 0 10px 50px rgba(245, 158, 11, 0.6); }
     }
 
     /* Navbar */
@@ -38,11 +71,13 @@
       justify-content: space-between;
       padding: 20px 5%;
       border-bottom: 1px solid var(--bd);
-      background: rgba(13, 13, 13, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(13, 13, 13, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       position: sticky;
       top: 0;
       z-index: 100;
+      animation: fadeIn 0.8s ease-out;
     }
 
     .logo {
@@ -51,6 +86,7 @@
       font-weight: 700;
       color: var(--am);
       text-decoration: none;
+      letter-spacing: -0.5px;
     }
 
     .logo span {
@@ -58,7 +94,7 @@
     }
 
     .nav-demo-btn {
-      padding: 10px 20px;
+      padding: 10px 22px;
       background: transparent;
       border: 1px solid var(--am);
       color: var(--am);
@@ -68,18 +104,20 @@
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
     }
 
     .nav-demo-btn:hover {
       background: var(--am);
       color: #000;
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
     }
 
     /* Hero Section */
     .hero {
       text-align: center;
-      padding: 100px 5% 80px;
+      padding: 120px 5% 80px;
       max-width: 900px;
       margin: 0 auto;
       flex: 1;
@@ -87,38 +125,45 @@
 
     .hero-badge {
       display: inline-block;
-      padding: 6px 16px;
-      background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 6px 18px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
       color: var(--am);
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
       margin-bottom: 24px;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .hero h1 {
       font-family: "Playfair Display", serif;
-      font-size: 56px;
+      font-size: 58px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.15;
       margin-bottom: 24px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
     }
 
     .hero p {
       font-size: 18px;
       color: var(--mu);
-      margin-bottom: 40px;
-      max-width: 600px;
+      margin-bottom: 44px;
+      max-width: 650px;
       margin-left: auto;
       margin-right: auto;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
     }
 
     .primary-btn {
       display: inline-block;
-      padding: 18px 40px;
+      padding: 20px 44px;
       background: var(--am);
       color: #000;
       border-radius: 14px;
@@ -126,58 +171,81 @@
       font-size: 16px;
       font-weight: 700;
       text-decoration: none;
-      transition: transform 0.2s, opacity 0.2s;
-      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+      opacity: 0;
+      animation: 
+        fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards,
+        pulseGlow 3s infinite ease-in-out;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
     }
 
     .primary-btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
+      transform: translateY(-4px) scale(1.02);
     }
 
-    /* Features Grid */
+    /* Features Grid (Glassmorphism design layout) */
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      padding: 0 5% 100px;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 28px;
+      padding: 0 5% 120px;
       max-width: 1200px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .feature-card {
       background: var(--card);
       border: 1px solid var(--bd);
-      border-radius: 16px;
-      padding: 32px 24px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 36px 28px;
       text-align: center;
-      transition: border-color 0.3s;
+      opacity: 0;
+      transition: 
+        border-color 0.3s ease, 
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    /* Staggered load entries */
+    .feature-card:nth-child(1) { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+    .feature-card:nth-child(2) { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards; }
+    .feature-card:nth-child(3) { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; }
 
     .feature-card:hover {
       border-color: var(--am);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.1);
     }
 
     .f-icon {
-      font-size: 40px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: 24px;
       display: inline-block;
-      width: 80px;
-      height: 80px;
-      background: #111;
-      line-height: 80px;
+      width: 76px;
+      height: 76px;
+      background: rgba(13, 13, 13, 0.5);
+      border: 1px solid var(--bd);
+      line-height: 74px;
       border-radius: 20px;
+    }
+
+    .feature-card:hover .f-icon {
+      animation: float 2s infinite ease-in-out;
+      border-color: var(--am);
     }
 
     .feature-card h3 {
       font-size: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       color: var(--tx);
+      font-weight: 600;
     }
 
     .feature-card p {
       font-size: 14px;
-      color: var(--mu);
+      color: var(--mu-dim);
     }
 
     /* Footer */
@@ -185,15 +253,20 @@
       text-align: center;
       padding: 40px;
       border-top: 1px solid var(--bd);
+      background: rgba(13, 13, 13, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       font-size: 13px;
-      color: var(--mu);
+      color: var(--mu-dim);
       margin-top: auto;
+      animation: fadeIn 1.2s ease 1s backwards;
     }
 
-    /* Responsive */
+    /* Responsive scaling design */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 40px; }
+      .hero h1 { font-size: 38px; }
       .hero p { font-size: 16px; }
+      .hero { padding: 80px 5% 60px; }
     }
   </style>
 </head>
@@ -201,14 +274,14 @@
 
   <nav class="navbar">
     <a href="#" class="logo"><span>Q</span>Table</a>
-    <a class="nav-demo-btn">Live Demo</a>
+    <a href="tableq_mvp_v2.html" class="nav-demo-btn">Live Demo</a>
   </nav>
 
   <main>
     <section class="hero">
-      <div class="hero-badge">Next-Gen Restaurant Tech</div>
+      <div class="hero-badge">Smart Dining System</div>
       <h1>Seamless QR Ordering for Modern Restaurants</h1>
-      <p>Transform your dine-in experience. Let customers browse, order, and pay directly from their phones while your kitchen stays perfectly in sync.</p>
+      <p>Transform your dine-in experience. Let customers browse, order, and pay instantly from their phones while your kitchen dashboard stays perfectly synchronized.</p>
       
       <a href="tableq_mvp_v2.html" class="primary-btn">Launch Interactive Demo →</a>
     </section>
@@ -217,23 +290,23 @@
       <div class="feature-card">
         <div class="f-icon">📱</div>
         <h3>No App Required</h3>
-        <p>Customers simply scan a QR code at their table to instantly access your digital menu in their mobile browser.</p>
+        <p>Diners simply scan the table QR stand to instantly open your beautiful menu directly within their smartphone browser.</p>
       </div>
       <div class="feature-card">
         <div class="f-icon">🖥️</div>
-        <h3>Live Cashier Dashboard</h3>
-        <p>Real-time order synchronization. Confirm, prepare, and track deliveries without ever missing a beat.</p>
+        <h3>Live Cashier Hub</h3>
+        <p>Real-time orders sync instantly to the checkout desk. Approve, update status tracks, and monitor performance parameters smoothly.</p>
       </div>
       <div class="feature-card">
         <div class="f-icon">⚡</div>
         <h3>Frictionless Payments</h3>
-        <p>Support for digital payments like bKash, Nagad, and Cards directly from the table, increasing table turnover speed.</p>
+        <p>Integrated processing windows handle seamless local checkouts like bKash, Nagad, and cards instantly at the table.</p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; 2026 QTable Interactive System. All rights reserved.</p>
+    <p>&copy; 2026 QTable Smart Dining. All rights reserved.</p>
   </footer>
 
 </body>
